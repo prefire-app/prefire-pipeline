@@ -7,16 +7,6 @@ from src.load.utils.upload_to_s3 import upload_to_s3
 
 
 def cog_to_s3(cog_directory: str, bucket_name: str, prefix: str) -> dict[str, dict]:
-    """Upload every *.cog in *cog_directory* to S3 and return a URI map.
-
-    Returns:
-        Dict keyed by COG basename, each value containing::
-
-            {
-                "s3_uri": "s3://<bucket>/<key>",
-                "etag":   "<ETag from S3 HEAD>",
-            }
-    """
     s3_client = boto3.client("s3")
     cogs = sorted(glob.glob(os.path.join(cog_directory, "*.cog")))
     total = len(cogs)

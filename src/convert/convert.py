@@ -8,9 +8,6 @@ from src.convert.validate_cogs import validate_cogs
 from src.shared.validate_env import validate_env
 
 def main():
-    '''
-    Main function to run the convert pipeline
-    '''
     load_dotenv()
     if not validate_env():
         return

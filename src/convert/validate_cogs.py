@@ -1,7 +1,4 @@
 def validate_cogs(COG_DIRECTORY):
-    '''
-    Validates that all COG files in the specified directory are valid COGs.
-    '''
     import subprocess
     import glob
     import os

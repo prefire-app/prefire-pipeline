@@ -6,11 +6,6 @@ import subprocess
 from src.shared.print_progress_bar import print_progress_bar
 
 def _extract_county(filename):
-    """Extract county name from a NAIP SID filename.
-    
-    Expected format: {county_name}_{state_fips}_{year}_{tile}.sid
-    e.g. san_benito_ca069_2024_1.sid -> 'san_benito'
-    """
     basename = os.path.splitext(os.path.basename(filename))[0]
     parts = basename.split("_")
     for i, part in enumerate(parts):

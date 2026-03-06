@@ -36,13 +36,12 @@ def main() -> None:
     collection = os.getenv("STAC_COLLECTION") 
 
     print("\n--- Step 1: Upload COGs to S3 ---")
-    cog_uris = cog_to_s3(cog_dir, bucket, prefix)
+    # cog_uris = cog_to_s3(cog_dir, bucket, prefix)
 
 
     print("\n--- Step 2: Extract metadata ---")
     extract_pipeline.main(cog_uris=COG_URIS, collection=collection)
 
-    # 3) TODO: upload metadata/ directory to S3
     print("\n--- Step 3: Load metadata to S3 (not yet implemented) ---")
 
     print("\nLoad process complete.")

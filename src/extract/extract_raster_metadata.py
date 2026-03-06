@@ -16,11 +16,6 @@ gdal.UseExceptions()
 
 
 def extract_raster_metadata(cog_path: str) -> dict:
-    """Return a dict of raster/spatial metadata extracted from *cog_path*.
-
-    Raises:
-        IOError: if GDAL cannot open the file.
-    """
     ds = gdal.Open(cog_path, gdal.GA_ReadOnly)
     if ds is None:
         raise IOError(f"GDAL could not open: {cog_path}")
@@ -30,14 +25,12 @@ def extract_raster_metadata(cog_path: str) -> dict:
     height = ds.RasterYSize
     wkt = ds.GetProjection()
 
-    # --- CRS ------------------------------------------------------------------
     srs = osr.SpatialReference()
     srs.ImportFromWkt(wkt)
     srs.AutoIdentifyEPSG()
     epsg_code = srs.GetAuthorityCode(None)
     epsg = int(epsg_code) if epsg_code else None
 
-    # Units from the CRS
     if srs.IsProjected():
         units = srs.GetLinearUnitsName()
     elif srs.IsGeographic():
@@ -48,7 +41,6 @@ def extract_raster_metadata(cog_path: str) -> dict:
     pixel_size_x = abs(gt[1])
     pixel_size_y = abs(gt[5])
 
-    # --- Bands ----------------------------------------------------------------
     bands = ds.RasterCount
     band1 = ds.GetRasterBand(1)
     dtype = gdal.GetDataTypeName(band1.DataType)
@@ -58,14 +50,12 @@ def extract_raster_metadata(cog_path: str) -> dict:
         for i in range(1, bands + 1)
     ]
 
-    # --- Reproject corners to EPSG:4326 for bbox/footprint -------------------
     wgs84 = osr.SpatialReference()
     wgs84.ImportFromEPSG(4326)
     wgs84.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
 
     coord_transform = osr.CoordinateTransformation(srs, wgs84)
 
-    # Four corners in native CRS (handles non-north-up rasters via rotation terms)
     corners_native = [
         (gt[0],                          gt[3]),                            # UL
         (gt[0] + width * gt[1],          gt[3] + width * gt[2]),            # UR
@@ -84,7 +74,6 @@ def extract_raster_metadata(cog_path: str) -> dict:
 
     bbox = [min_lon, min_lat, max_lon, max_lat]
 
-    # Footprint as closed bbox polygon (5 points, UL → UR → LR → LL → UL)
     footprint = {
         "type": "Polygon",
         "coordinates": [[
