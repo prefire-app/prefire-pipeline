@@ -1,0 +1,34 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "d765d2eddfb0b78574a843260e57c15370325b6c443ca3b5bc67921dc781cdcb": {
+      "displayName": "PrefireStack Template",
+      "source": {
+        "path": "PrefireStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-815e4326": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "d765d2eddfb0b78574a843260e57c15370325b6c443ca3b5bc67921dc781cdcb.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {
+    "cea09ddc0d2e1cf4d73d56d8df44a0c94c17082197486027420da177a2c4d4eb": {
+      "displayName": "CogHandler/AssetImage",
+      "source": {
+        "directory": "asset.cea09ddc0d2e1cf4d73d56d8df44a0c94c17082197486027420da177a2c4d4eb"
+      },
+      "destinations": {
+        "current_account-current_region-626d0830": {
+          "repositoryName": "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+          "imageTag": "cea09ddc0d2e1cf4d73d56d8df44a0c94c17082197486027420da177a2c4d4eb",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  }
+}
