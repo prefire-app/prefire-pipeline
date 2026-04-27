@@ -128,6 +128,40 @@
          ]
         }
        ]
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::prefire-dev-data"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::prefire-dev-data/*"
+          ]
+         ]
+        }
+       ]
       }
      ],
      "Version": "2012-10-17"
@@ -148,7 +182,7 @@
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:cea09ddc0d2e1cf4d73d56d8df44a0c94c17082197486027420da177a2c4d4eb"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:0da93dcf4c86b731ae0786c780de61084d2072da7985bfba234c37da5dfdc455"
      }
     },
     "Environment": {
@@ -157,6 +191,8 @@
       "OUTPUT_BUCKET": {
        "Ref": "OutputBucket7114EB27"
       },
+      "FHSZ_BUCKET": "prefire-dev-data",
+      "FHSZ_COG_KEY": "fhsz/fhsz_cog.cog",
       "ENV": "dev"
      }
     },
@@ -176,7 +212,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "PrefireStack/CogHandler/Resource",
-    "aws:asset:path": "asset.cea09ddc0d2e1cf4d73d56d8df44a0c94c17082197486027420da177a2c4d4eb",
+    "aws:asset:path": "asset.0da93dcf4c86b731ae0786c780de61084d2072da7985bfba234c37da5dfdc455",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
@@ -650,7 +686,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02P0U7DMAxFv2XvWYANCV47JiQkEFX3AZOXmc60javYUamq/jtKOsSefOJ75XuzsZvHZ3u/gkHW7tysWzrZ6aDgGgODHCfZ2mkXXYO6A0GzoHn58gvNpoXudAY77dk1GN46qPE1eqfEPtluucTQkQixnw1BZ6eKW0xCniW35MbsyzQbdOEIIqhib64XaZM0W2HPQsphzN2gpxoUBxjt9J5bVSha9JQj/rFwjqNXs8e+5bFDn/9z8zoo1LnXAhUKx+Awh3ygXvicxCuVgX/GP8s1KfM8m1w1HSFfJ+kzah91NuWoF/Z3W/uwsU+rbyFah+iVOrTVMn8BpzxjqpcBAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02PYW7CMAyFz8L/kI2yC8DQpEmbVpUDIBO8YtrGVeyoq6refUrKNH75i9+T30thi5eNfV7BIGt3adYtne10VHCNgUFOk2zttI+uQd2DoFnQvH77hWbTQne+gJ0O7BoM7x3U+Ba9U2KfbI9cYuhIhNjPhqCzU8UtJiHPkltyY/Zlmg26cAIRVLEP13dpkzRbYc9CymHM3aCnGhQHGO30kVtVKLrrKUf84845jl7NAfuWxw59/s/D66hQ514LVCgcg8Mc8ol65UsS71QG/hn/LPekzPNsctV0hHydpK+ofdTZlKNe2T9t7aawm2J1E6J1iF6pQ1st8xfN0jm0mAEAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "PrefireStack/CDKMetadata/Default"

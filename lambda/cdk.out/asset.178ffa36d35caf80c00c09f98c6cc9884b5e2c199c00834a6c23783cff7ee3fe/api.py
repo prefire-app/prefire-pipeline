@@ -153,8 +153,7 @@ def handler(event, context):
     if not user_geom_wgs84.is_valid:
         return _err(400, "Invalid geometry")
 
-    user_geom_utm = transform(_to_utm.transform, user_geom_wgs84)
-    if not _geom_in_county(fips, user_geom_utm):
+    if not _geom_in_county(fips, user_geom_wgs84):
         return _err(400, "geometry does not intersect the requested county")
 
     key = _find_key(fips)

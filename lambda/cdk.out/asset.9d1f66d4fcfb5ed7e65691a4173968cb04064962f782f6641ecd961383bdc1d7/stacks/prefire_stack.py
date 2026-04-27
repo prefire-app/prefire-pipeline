@@ -22,7 +22,7 @@ class PrefireStack(Stack):
             lifecycle_rules=[s3.LifecycleRule(expiration=Duration.days(1))]
         )
 
-        data_bucket = s3.Bucket.from_bucket_name(self, "DataBucket", f"prefire-{env}-data")
+        data_bucket = s3.Bucket(self, "DataBucket", bucket_name=f"prefire-{env}-data")
 
         fn = _lambda.DockerImageFunction(
             self, "CogHandler",
@@ -52,3 +52,4 @@ class PrefireStack(Stack):
         )
 
         CfnOutput(self, "ApiUrl", value=api.url, description="API Gateway endpoint URL")
+        CfnOutput(self, "DataBucketName", value=data_bucket.bucket_name, description="S3 bucket for FHSZ and other reference data")

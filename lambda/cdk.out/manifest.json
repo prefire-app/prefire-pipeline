@@ -1,5 +1,5 @@
 {
-  "version": "53.0.0",
+  "version": "52.0.0",
   "artifacts": {
     "PrefireStack.assets": {
       "type": "cdk:asset-manifest",
@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/d765d2eddfb0b78574a843260e57c15370325b6c443ca3b5bc67921dc781cdcb.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a90cfb2ca027da029f0afeb1b4433f1354d4dc2f529713ca83595c7f60d230b3.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -33,7 +33,152 @@
       "dependencies": [
         "PrefireStack.assets"
       ],
-      "additionalMetadataFile": "PrefireStack.metadata.json",
+      "metadata": {
+        "/PrefireStack/OutputBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OutputBucket7114EB27"
+          }
+        ],
+        "/PrefireStack/CogHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogHandlerServiceRoleE4ABB51F"
+          }
+        ],
+        "/PrefireStack/CogHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogHandlerServiceRoleDefaultPolicyE59E192E"
+          }
+        ],
+        "/PrefireStack/CogHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogHandler5DE180D5"
+          }
+        ],
+        "/PrefireStack/CogApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApi98EB34F9"
+          }
+        ],
+        "/PrefireStack/CogApi/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiCloudWatchRoleEB4B07FA"
+          }
+        ],
+        "/PrefireStack/CogApi/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiAccountEFCB96A7"
+          }
+        ],
+        "/PrefireStack/CogApi/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiDeployment105FF0063c0259ccfae01ea56641b187dbc881a6"
+          }
+        ],
+        "/PrefireStack/CogApi/DeploymentStage.dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiDeploymentStagedev3338E879"
+          }
+        ],
+        "/PrefireStack/CogApi/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiEndpointD5CDD397"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiOPTIONS03D44508"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/{proxy+}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiproxyAF3FC8C1"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/{proxy+}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiproxyOPTIONS068C3ED6"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/{proxy+}/ANY/ApiPermission.PrefireStackCogApiF0AE8F41.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiproxyANYApiPermissionPrefireStackCogApiF0AE8F41ANYproxyB8B8EAA2"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/{proxy+}/ANY/ApiPermission.Test.PrefireStackCogApiF0AE8F41.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiproxyANYApiPermissionTestPrefireStackCogApiF0AE8F41ANYproxyB789BC39"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/{proxy+}/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiproxyANY9D21AC8B"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/ANY/ApiPermission.PrefireStackCogApiF0AE8F41.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiANYApiPermissionPrefireStackCogApiF0AE8F41ANYDF15F1B4"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/ANY/ApiPermission.Test.PrefireStackCogApiF0AE8F41.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiANYApiPermissionTestPrefireStackCogApiF0AE8F41ANYCA2CEC5D"
+          }
+        ],
+        "/PrefireStack/CogApi/Default/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CogApiANYFA9B6CE5"
+          }
+        ],
+        "/PrefireStack/ApiUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiUrl"
+          }
+        ],
+        "/PrefireStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/PrefireStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/PrefireStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/PrefireStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
       "displayName": "PrefireStack"
     },
     "Tree": {
@@ -460,14 +605,6 @@
             "recommendedValue": true,
             "explanation": "Use the `Distribution` resource instead of `CloudFrontWebDistribution`"
           },
-          "@aws-cdk/aws-cloudfront:defaultFunctionRuntimeV2_0": {
-            "recommendedValue": true,
-            "explanation": "Use cloudfront-js-2.0 as the default runtime for CloudFront Functions"
-          },
-          "@aws-cdk/aws-elasticloadbalancingv2:usePostQuantumTlsPolicy": {
-            "recommendedValue": true,
-            "explanation": "When enabled, HTTPS/TLS listeners use post-quantum TLS policy by default"
-          },
           "@aws-cdk/core:automaticL1Traits": {
             "recommendedValue": true,
             "explanation": "Automatically use the default L1 traits for L1 constructs`",
@@ -479,5 +616,5 @@
       }
     }
   },
-  "minimumCliVersion": "2.1118.0"
+  "minimumCliVersion": "2.1107.0"
 }

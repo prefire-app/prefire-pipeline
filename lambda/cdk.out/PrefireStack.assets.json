@@ -1,31 +1,31 @@
 {
-  "version": "53.0.0",
+  "version": "52.0.0",
   "files": {
-    "d765d2eddfb0b78574a843260e57c15370325b6c443ca3b5bc67921dc781cdcb": {
+    "a90cfb2ca027da029f0afeb1b4433f1354d4dc2f529713ca83595c7f60d230b3": {
       "displayName": "PrefireStack Template",
       "source": {
         "path": "PrefireStack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-current_region-815e4326": {
+        "current_account-current_region-dc5bcd75": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "d765d2eddfb0b78574a843260e57c15370325b6c443ca3b5bc67921dc781cdcb.json",
+          "objectKey": "a90cfb2ca027da029f0afeb1b4433f1354d4dc2f529713ca83595c7f60d230b3.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }
     }
   },
   "dockerImages": {
-    "cea09ddc0d2e1cf4d73d56d8df44a0c94c17082197486027420da177a2c4d4eb": {
+    "0da93dcf4c86b731ae0786c780de61084d2072da7985bfba234c37da5dfdc455": {
       "displayName": "CogHandler/AssetImage",
       "source": {
-        "directory": "asset.cea09ddc0d2e1cf4d73d56d8df44a0c94c17082197486027420da177a2c4d4eb"
+        "directory": "asset.0da93dcf4c86b731ae0786c780de61084d2072da7985bfba234c37da5dfdc455"
       },
       "destinations": {
-        "current_account-current_region-626d0830": {
+        "current_account-current_region-8d5abe42": {
           "repositoryName": "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
-          "imageTag": "cea09ddc0d2e1cf4d73d56d8df44a0c94c17082197486027420da177a2c4d4eb",
+          "imageTag": "0da93dcf4c86b731ae0786c780de61084d2072da7985bfba234c37da5dfdc455",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

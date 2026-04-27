@@ -131,40 +131,40 @@ def test_valid_request(base_url: str):
 # ── FHSZ endpoint tests ──────────────────────────────────────────────────────
 
 def test_fhsz_missing_params(base_url: str):
-    resp = requests.get(f"{base_url}/fhsz")
+    resp = requests.get(f"{base_url}fhsz")
     assert resp.status_code == 400, f"Expected 400, got {resp.status_code}"
     assert "error" in resp.json()
     print("PASS  GET /fhsz no params → 400")
 
 
 def test_fhsz_outside_california(base_url: str):
-    resp = requests.get(f"{base_url}/fhsz", params={"lat": "51.5", "lon": "-0.12"})
+    resp = requests.get(f"{base_url}fhsz", params={"lat": "51.5", "lon": "-0.12"})
     assert resp.status_code == 400, f"Expected 400, got {resp.status_code}"
     assert "California" in resp.json().get("error", "")
     print("PASS  GET /fhsz London coords → 400 (outside CA bounds)")
 
 
 def test_fhsz_invalid_params(base_url: str):
-    resp = requests.get(f"{base_url}/fhsz", params={"lat": "abc", "lon": "-122.0"})
+    resp = requests.get(f"{base_url}fhsz", params={"lat": "abc", "lon": "-122.0"})
     assert resp.status_code == 400, f"Expected 400, got {resp.status_code}"
     print("PASS  GET /fhsz non-numeric lat → 400")
 
 
 def test_fhsz_wildland_zone(base_url: str):
-    """Nevada County — expected to be in an FHSZ zone."""
-    resp = requests.get(f"{base_url}/fhsz", params={"lat": "39.1940", "lon": "-121.0037"})
+    """Sonoma County wildland hills — expected to be in an FHSZ zone."""
+    resp = requests.get(f"{base_url}fhsz", params={"lat": "38.45", "lon": "-122.72"})
     assert resp.status_code == 200, f"Expected 200, got {resp.status_code}: {resp.text}"
     body = resp.json()
     assert "zone" in body, f"Response missing 'zone': {body}"
     assert body["zone"] in ("Moderate", "High", "Very High"), (
         f"Unexpected zone value for wildland area: {body['zone']}"
     )
-    print(f"PASS  GET /fhsz Nevada County wildland → zone={body['zone']}")
+    print(f"PASS  GET /fhsz Sonoma wildland → zone={body['zone']}")
 
 
 def test_fhsz_urban_no_zone(base_url: str):
     """Downtown San Jose — dense urban, expected zone=null."""
-    resp = requests.get(f"{base_url}/fhsz", params={"lat": "37.338", "lon": "-121.886"})
+    resp = requests.get(f"{base_url}fhsz", params={"lat": "37.338", "lon": "-121.886"})
     assert resp.status_code == 200, f"Expected 200, got {resp.status_code}: {resp.text}"
     body = resp.json()
     assert "zone" in body, f"Response missing 'zone': {body}"

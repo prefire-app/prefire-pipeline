@@ -89,12 +89,65 @@ This creates:
 
 ### Lambda Environment Variables
 
-| Variable             | Default    | Description                             |
-| -------------------- | ---------- | --------------------------------------- |
-| `COG_BUCKET`         | set by CDK | Source COG bucket name                  |
-| `OUTPUT_BUCKET`      | set by CDK | Output bucket for subset COGs           |
-| `ENV`                | set by CDK | Deployment environment (`dev` / `prod`) |
-| `URL_EXPIRY_SECONDS` | `900`      | Presigned URL TTL in seconds            |
+| Variable             | Default              | Description                                   |
+| -------------------- | -------------------- | --------------------------------------------- |
+| `COG_BUCKET`         | set by CDK           | Source COG bucket name                        |
+| `OUTPUT_BUCKET`      | set by CDK           | Output bucket for subset COGs                 |
+| `FHSZ_BUCKET`        | set by CDK           | Bucket containing the FHSZ COG                |
+| `FHSZ_COG_KEY`       | `fhsz/fhsz_cog.cog` | S3 key for the FHSZ Cloud-Optimized GeoTIFF   |
+| `ENV`                | set by CDK           | Deployment environment (`dev` / `prod`)       |
+| `URL_EXPIRY_SECONDS` | `900`                | Presigned URL TTL in seconds                  |
+
+---
+
+## Testing
+
+All tests live in `lambda/test/`. They require `rasterio`, `shapely`, `pyproj`, `boto3`, and `requests` to be installed locally.
+
+### Unit tests — county shape intersection (no AWS credentials required)
+
+Verifies that the county polygon data is correct and that the intersection logic passes for every supported county.
+
+```bash
+python lambda/test/test_county_shapes.py
+```
+
+### Local integration tests (AWS credentials required)
+
+Runs the Lambda handler in-process against the real `prefire-dev` S3 buckets. Tests both the COG subset endpoint and the FHSZ lookup endpoint.
+
+```bash
+python lambda/test/test_local.py
+```
+
+The FHSZ tests require `FHSZ_BUCKET=prefire-dev-data` and `FHSZ_COG_KEY=fhsz/fhsz_cog.cog` — these are already set at the top of the script. Make sure the FHSZ COG has been uploaded to S3 before running.
+
+### End-to-end tests against the deployed API (AWS credentials required)
+
+Runs all tests against the live API Gateway endpoint. The API URL is read from CloudFormation automatically, or can be provided via `API_URL`.
+
+```bash
+# Auto-discover URL from CloudFormation
+python lambda/test/aws_test.py
+
+# Or provide the URL explicitly
+API_URL=https://<id>.execute-api.<region>.amazonaws.com/dev/ python lambda/test/aws_test.py
+```
+
+Tests covered:
+
+| Test | Endpoint | What it checks |
+| ---- | -------- | -------------- |
+| `test_missing_params` | `POST /` | Missing body → 400 |
+| `test_invalid_fips` | `POST /` | Unknown FIPS → 404 |
+| `test_geom_outside_county` | `POST /` | Geometry outside county → 400 |
+| `test_geom_in_each_county` | `POST /` | Centroid polygon passes county check for all 13 counties |
+| `test_valid_request` | `POST /` | Returns 200 with a valid presigned URL; downloads the GeoTIFF |
+| `test_fhsz_missing_params` | `GET /fhsz` | Missing lat/lon → 400 |
+| `test_fhsz_outside_california` | `GET /fhsz` | Coordinates outside CA → 400 |
+| `test_fhsz_invalid_params` | `GET /fhsz` | Non-numeric lat → 400 |
+| `test_fhsz_wildland_zone` | `GET /fhsz` | Sonoma wildland → returns a zone name |
+| `test_fhsz_urban_no_zone` | `GET /fhsz` | Downtown San Jose → `zone: null` |
 
 ---
 
